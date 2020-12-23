@@ -6,9 +6,9 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <script src="https://kit.fontawesome.com/82f7548cd5.js" crossorigin="anonymous"></script>
+    <script src="index.js" defer></script>
     <link
-    rel="stylesheet"
-    href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
     integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
     crossorigin="anonymous"
     >
@@ -22,10 +22,10 @@
             <div class="row">
                 <nav class="col navbar navbar-expand-lg navbar-dark">
                     <div>
-                        <img src="JWDP5-master/images/logo_orinoco_mini.png">
+                        <img src="JWDP5-master/images/logo_orinoco2-removebg_mini.png">
                     </div>
                     <div class="inline-flex offset-lg-3">
-                        <a class="navbar-brand" href="index.html">Oricam by Orinoco</a>
+                        <a class="navbar-brand" href="index.html"><h1 class="position-relative">Oricam</h1><h6 class="position-absolute" style="bottom:0;right:-1"> by Orinoco</h6></a>
                     </div>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent">
                         <span class="navbar-toggler-icon"></span>
@@ -35,13 +35,11 @@
                             <li class="nav-item active">
                                 <a class="nav-link" href="index.html">Accueil</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="produit.html">Produit</a>
-                            </li>
+
                             <li class="nav-item" href="panier.html">
-                                <a class="nav-link">
+                                <a class="nav-link position-relative " href="panier.html">
                                     <i class="fas fa-shopping-cart" aria-hidden="true"></i>
-                                    <span class="ml-2 badge badge-pill badge-info">1</span>
+                                    <span class="position-absolute badge badge-pill badge-info" id="badge_panier" style="top:0;right:1"></span>
                                 </a>
                             </li>
                         </ul>
@@ -91,73 +89,8 @@
             </div>
         </div>
 
-        <div class="row">
-            <div class="col-12 col-lg-4">
-                <div class="card mt-5 mb-4 mb-lg-0">
-                <img src="JWDP5-master/images/vcam_1.jpg" alt="certificat" class="card-img-top" >
-                    <span class="position-absolute mr-3 mt-3 justify-content-end float-right badge btn-success" style="right: 0">New</span>
-                    <div class="card-body">
-                        <div class="row mb-3">
-                            <h5 class="card-title mb-0 col-10 align-middle">Camera n°1</h5>
-                            <span class="badge badge-pill badge-secondary col-2 align-self-center py-2">123€</span>
-                        </div>
-                        <p class="card-text">Une description détaillée du produit n°1</p>
-                        <button type="button" class="btn btn-secondary text-muted btn-lg btn-block stretched-link"><a class="text-decoration-none text-white" href="produit.html">Commander</a></button>
-                    </div>
-                </div>
-            </div>
-            <div class="col-12 col-lg-4">
-                <div class="card mt-5 mb-4 mb-lg-0">
-                    <img src="JWDP5-master/images/vcam_2.jpg" alt="instruction" class="card-img-top" >
-                    <div class="card-body">
-                        <div class="row mb-3">
-                            <h5 class="card-title mb-0 col-10 align-middle">Camera n°2</h5>
-                            <span class="badge badge-pill badge-secondary col-2 align-self-center py-2">234€</span>
-                        </div>
-                        <p class="card-text">Une description détaillée du produit n°2</p>
-                        <button type="button" class="btn btn-secondary text-muted btn-lg btn-block stretched-link"><a class="text-decoration-none text-white" href="#">Commander</a></button>
-                    </div>
-                </div>
-            </div>
-            <div class="col-12 mt-5 col-lg-4">
-                <div class="card mb-4 mb-lg-0">
-                    <img src="JWDP5-master/images/vcam_3.jpg" alt="job" class="card-img-top" >
-                    <div class="card-body">
-                        <div class="row mb-3">
-                            <h5 class="card-title mb-0 col-10 align-middle">Camera n°3</h5>
-                            <span class="badge badge-pill badge-secondary col-2 align-self-center py-2">345€</span>
-                        </div>
-                        <p class="card-text">Une description détaillée du produit n°3</p>
-                        <button type="button" class="btn btn-secondary text-muted btn-lg btn-block stretched-link"><a class="text-decoration-none text-white" href="#">Commander</a></button>
-                    </div>
-                </div>
-            </div>
-            <div class="col-12 mt-5 col-lg-4">
-                <div class="card mb-4 mb-lg-0">
-                    <img src="JWDP5-master/images/vcam_4.jpg" alt="job" class="card-img-top" >
-                    <div class="card-body">
-                        <div class="row mb-3">
-                            <h5 class="card-title mb-0 col-10 align-middle">Camera n°4</h5>
-                            <span class="badge badge-pill badge-secondary col-2 align-self-center py-2">456€</span>
-                        </div>
-                        <p class="card-text">Une description détaillée du produit n°4</p>
-                        <button type="button" class="btn btn-secondary text-muted btn-lg btn-block stretched-link"><a class="text-decoration-none text-white" href="#">Commander</a></button>
-                    </div>
-                </div>
-            </div>
-            <div class="col-12 mt-5 col-lg-4">
-                <div class="card mb-4 mb-lg-0">
-                    <img src="JWDP5-master/images/vcam_5.jpg" alt="job" class="card-img-top" >
-                    <div class="card-body">
-                        <div class="row mb-3">
-                            <h5 class="card-title mb-0 col-10 align-middle">Camera n°5</h5>
-                            <span class="badge badge-pill badge-secondary col-2 align-self-center py-2">567€</span>
-                        </div>
-                        <p class="card-text">Une description détaillée du produit n°5</p>
-                        <button type="button" class="btn btn-secondary text-muted btn-lg btn-block stretched-link"><a class="text-decoration-none text-white" href="#">Commander</a></button>
-                    </div>
-                </div>
-            </div>
+        <div class="row" id="cameras-container">
+
         </div>
 
         <!-- Footer -->
