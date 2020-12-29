@@ -4,8 +4,10 @@
 <head>
 <!-- Required meta tags -->
     <meta charset="utf-8" />
+    <meta name="description" content="Oricam - Magasin spécialisé dans la vente d'appareils photo vintages">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <script src="https://kit.fontawesome.com/82f7548cd5.js" crossorigin="anonymous"></script>
+<!--    <script src="main.js"></script>-->
     <script src="index.js" defer></script>
     <link
     rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
@@ -22,10 +24,11 @@
             <div class="row">
                 <nav class="col navbar navbar-expand-lg navbar-dark">
                     <div>
-                        <img src="JWDP5-master/images/logo_orinoco2-removebg_mini.png">
+                        <img src="JWDP5-master/images/logo_orinoco2-removebg_mini.png" alt="logo Orinoco">
                     </div>
                     <div class="inline-flex offset-lg-3">
-                        <a class="navbar-brand" href="index.html"><h1 class="position-relative">Oricam</h1><h6 class="position-absolute" style="bottom:0;right:-1"> by Orinoco</h6></a>
+                        <a class="navbar-brand" href="index.html"><h1 class="position-relative">Oricam</h1>
+                        <p><small class="position-absolute">by Orinoco</small></p></a>
                     </div>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent">
                         <span class="navbar-toggler-icon"></span>
@@ -54,28 +57,16 @@
             <div class="col">
                 <div id="myCarousel" class="carousel slide" data-ride="carousel">
                     <ol class="carousel-indicators">
+<!--
                         <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
                         <li data-target="#myCarousel" data-slide-to="1"></li>
                         <li data-target="#myCarousel" data-slide-to="2"></li>
                         <li data-target="#myCarousel" data-slide-to="3"></li>
                         <li data-target="#myCarousel" data-slide-to="4"></li>
+-->
                       </ol>
-                    <div class="carousel-inner">
-                        <div class="carousel-item active">
-                            <img src="JWDP5-master/images/vcam_1.jpg" class="d-block w-100" alt="Camera 1">
-                        </div>
-                        <div class="carousel-item">
-                            <img src="JWDP5-master/images/vcam_2.jpg" class="d-block w-100" alt="Camera 2">
-                        </div>
-                        <div class="carousel-item">
-                            <img src="JWDP5-master/images/vcam_3.jpg" class="d-block w-100" alt="Camera 3">
-                        </div>
-                        <div class="carousel-item">
-                            <img src="JWDP5-master/images/vcam_4.jpg" class="d-block w-100" alt="Camera 4">
-                        </div>
-                        <div class="carousel-item">
-                            <img src="JWDP5-master/images/vcam_5.jpg" class="d-block w-100" alt="Camera 5">
-                        </div>
+                    <div class="carousel-inner" id="carousel-container">
+
                     </div>
                     <a class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev">
                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>

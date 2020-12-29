@@ -4,13 +4,12 @@
 <head>
 <!-- Required meta tags -->
     <meta charset="utf-8" />
+    <meta name="description" content="Oricam - Magasin spécialisé dans la vente d'appareils photo vintages">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <script src="https://kit.fontawesome.com/82f7548cd5.js" crossorigin="anonymous"></script>
-    <link
-    rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
-    crossorigin="anonymous"
-    >
+    <script src="panierb.js" defer></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
 
     <title>Oricam</title>
 </head>
@@ -21,10 +20,11 @@
             <div class="row">
                 <nav class="col navbar navbar-expand-lg navbar-dark">
                     <div>
-                        <img src="JWDP5-master/images/logo_orinoco2-removebg_mini.png">
+                        <img src="JWDP5-master/images/logo_orinoco2-removebg_mini.png" alt="logo Orinoco">
                     </div>
                     <div class="inline-flex offset-lg-3">
-                        <a class="navbar-brand" href="index.html">Oricam by Orinoco</a>
+                        <a class="navbar-brand" href="index.html"><h1 class="position-relative">Oricam</h1>
+                        <p><small class="position-absolute">by Orinoco</small></p></a>
                     </div>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent">
                         <span class="navbar-toggler-icon"></span>
@@ -37,7 +37,7 @@
                             <li class="nav-item active">
                                 <a class="nav-link position-relative " href="panier.html">
                                     <i class="fas fa-shopping-cart" aria-hidden="true"></i>
-                                    <span class="position-absolute badge badge-pill badge-info" style="top:0;right:1">1</span>
+                                    <span class="position-absolute badge badge-pill badge-info" id="badge_panier" style="top:0;right:1"></span>
                                 </a>
                             </li>
                         </ul>
@@ -74,53 +74,63 @@
         </div>
         <div class="row ml-0 mr-0 mt-5">
             <div class="col-lg-12">
-                <form>
+                <form class="needs-validation" onsubmit="return formCheck()" method="get" name="formSaisie" novalidate>
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for="inputPrenom">Prénom</label>
-                            <input type="text" class="form-control" id="inputPrenom" placeholder="Prénom">
+                            <input type="text" name="Prenom" class="form-control" id="inputPrenom" placeholder="Prénom" pattern="[a-zA-ZÀ-ÿ]{2,30}" required>
                         </div>
                         <div class="form-group col-md-6">
                             <label for="inputNom">Nom</label>
-                            <input type="text" class="form-control" id="inputNom" placeholder="Nom">
+                            <input type="text" name="Nom" class="form-control" id="inputNom" placeholder="Nom" pattern="[a-zA-ZÀ-ÿ]{2,30}" required>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="inputAddresse">Adresse</label>
-                        <input type="text" class="form-control" id="inputAddress" placeholder="1234 Rue de la Liberté">
+                        <input type="text" name="Adresse" class="form-control" id="inputAddress" placeholder="1234 Rue de la Liberté" pattern="[0-9]{1,3}(?:(?:[,. ]?){1}[-a-zA-Zàâäéèêëïîôöùûüç]+)*" required>
                     </div>
                     <div class="form-group">
                         <label for="inputAddress2">Adresse 2</label>
-                        <input type="text" class="form-control" id="inputAddress2" placeholder="Appartement, studio, étage, etc">
+                        <input type="text" name="inputAddress2" class="form-control" id="inputAddress2" placeholder="Appartement, studio, étage, etc">
                     </div>
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for="inputCity">Ville</label>
-                            <input type="text" class="form-control" id="inputCity" placeholder="Paris">
+                            <input type="text" name="Ville" class="form-control" id="inputCity" placeholder="Paris" pattern="[A-Z][a-z]{2,30}" required>
                         </div>
                         <div class="form-group col-md-4">
                             <label for="inputState">Pays</label>
-                            <select id="inputState" class="form-control">
+                            <select id="inputState" name="Pays" class="form-control">
                                 <option selected>France</option>
-                                <option>...</option>
                             </select>
                         </div>
                         <div class="form-group col-md-2">
                             <label for="inputZip">Code Postal</label>
-                            <input type="text" class="form-control" id="inputZip" placeholder="75001">
+                            <input type="text" name="Zip" class="form-control" id="inputZip" placeholder="75001" pattern="[0-9]{5}" required>
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="form-group col-md-6">
-                            <label for="inputEmail4">Email</label>
-                            <input type="email" class="form-control" id="inputEmail4" placeholder="Email">
+                            <label for="inputEmail">Email</label>
+                            <input type="email" name="Email" class="form-control" id="inputEmail"  placeholder="jean.dupont@world.com" required>
                         </div>
                         <div class="form-group col-md-6">
                             <label for="inputPhone">Téléphone</label>
-                            <input type="phone" class="form-control" id="inputPhone" placeholder="0102030405">
+                            <input type="tel" name="Telephone" class="form-control" id="inputPhone" placeholder="01 02 03 04 05" required>
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-secondary"><a class="text-decoration-none text-white" href="panierc.html">Procéder au paiement</a></button>
+                    <div class="form-row">
+                        <div class="form-check ml-1">
+                          <input name="CGV" class="form-check-input" type="checkbox" placeholder="" id="invalidCheck" required>
+                          <label class="form-check-label" for="invalidCheck">
+                            Je certifie avoir lu et me conformer aux CGV
+                          </label>
+                          <div class="invalid-feedback">
+                            Vous devez confirmer avant de poursuivre
+                          </div>
+                        </div>
+                    </div>
+                    <input type="submit" class="btn btn-secondary mt-5" onclick="" value="Procéder au paiement" id="bouton-validation">
                 </form>
             </div>
            
