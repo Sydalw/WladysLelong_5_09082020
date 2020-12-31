@@ -36,7 +36,6 @@ requete.onload = function () {
             majContenuPanier();
             afficherBadgePanier();
             animationInput();
-            //prevent();
         }
         
     } else {
@@ -70,16 +69,6 @@ function afficherBadgePanier() {
     badgePanier.innerHTML=`${elementsPanier.length}`;
 }
 
-//function prevent(){
-//    const btnValider = document.getElementById("bouton-validation");
-//    btnValider.addEventListener("click", function(event){
-//        formCheck();
-//        event.preventDefault();
-//        event.stopPropagation();
-//
-//    });
-//}
-
 // Example starter JavaScript for disabling form submissions if there are invalid fields
 function animationInput() {
   'use strict'
@@ -90,11 +79,10 @@ function animationInput() {
   // Loop over them and prevent submission
   Array.prototype.slice.call(forms)
     .forEach(function (form) {
-      form.addEventListener('submit', function (event) {
+      form.addEventListener('change', function (event) {
         if (!form.checkValidity()) {
             event.preventDefault()
             event.stopPropagation()
-            //formCheck();
         }
 
         form.classList.add('was-validated')
@@ -118,6 +106,7 @@ function formCheck() {
             }
        } 
     }
+    
     const contact = {
       firstName: orderInput[0].value,
       lastName: orderInput[1].value,
@@ -148,6 +137,7 @@ function formCheck() {
     request.responseType = 'json'; 
     
     alert("début");
+    
     //reponse de la requete
     request.onload = function () { 
         if (request.readyState === XMLHttpRequest.DONE ) { // verifie l'état de la requête. 
@@ -160,7 +150,7 @@ function formCheck() {
                 alert(idConfirmation);
                 console.log(idConfirmation);
 
-                localStorage.setItem("confirm", idConfirmation);
+                localStorage.setItem("orderNumber", idConfirmation);
                 //localStorage.removeItem("");
             }
             else {
@@ -171,6 +161,7 @@ function formCheck() {
     }
         
     alert("fin");
+    
     return true;
     
 }

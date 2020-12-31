@@ -78,7 +78,7 @@
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for="inputPrenom">Prénom</label>
-                            <input type="text" name="Prenom" class="form-control" id="inputPrenom" placeholder="Prénom" pattern="[a-zA-ZÀ-ÿ]{2,30}" required>
+                            <input type="text" name="Prenom" class="form-control" id="inputPrenom" placeholder="Prénom" pattern="^([A-zÀ-ÿ]+[' -]?[A-zÀ-ÿ]+)$" required>
                         </div>
                         <div class="form-group col-md-6">
                             <label for="inputNom">Nom</label>
@@ -96,7 +96,7 @@
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for="inputCity">Ville</label>
-                            <input type="text" name="Ville" class="form-control" id="inputCity" placeholder="Paris" pattern="[A-Z][a-z]{2,30}" required>
+                            <input type="text" name="Ville" class="form-control" id="inputCity" placeholder="Paris" pattern="^([A-zÀ-ÿ]+[' -]?[A-zÀ-ÿ]+)$" required>
                         </div>
                         <div class="form-group col-md-4">
                             <label for="inputState">Pays</label>
@@ -116,7 +116,7 @@
                         </div>
                         <div class="form-group col-md-6">
                             <label for="inputPhone">Téléphone</label>
-                            <input type="tel" name="Telephone" class="form-control" id="inputPhone" placeholder="01 02 03 04 05" required>
+                            <input type="tel" name="Telephone" class="form-control" pattern="[0-9]{10}" id="inputPhone" placeholder="0102030405" required>
                         </div>
                     </div>
                     <div class="form-row">

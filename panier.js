@@ -4,7 +4,8 @@ const camerasContainer = document.querySelector('#camera_Container');
 const recapCommande = document.querySelector('#recap_commande');
 const totalElement = document.getElementsByClassName("total");
 const badgePanier = document.querySelector('#badge_panier');
-
+const elementsAMasquer = document.getElementsByClassName("masquerSiVide");
+const elementsAAfficher = document.getElementsByClassName("afficherSiVide");
 
 class elementPanier {
     constructor(name, id, option, quantity, price){
@@ -33,13 +34,18 @@ requete.onload = function () {
             console.log(camerasArray);
             // on cherche la bonne camera dans le array.
             majContenuPanier();
-            for(let element of elementsPanier){
-                trouverCamera(element);
+            if (elementsPanier.length===0) {
+                panierVide();
             }
-            majTOTAL();
-            afficherBadgePanier();
-            majQuantity();
-            supprimer();
+            else {
+                for(let element of elementsPanier){
+                    trouverCamera(element);
+                }
+                majTOTAL();
+                afficherBadgePanier();
+                majQuantity();
+                supprimer();
+            }
         }
         
     } else {
@@ -163,5 +169,14 @@ function supprimer() {
             localStorage.removeItem("qte_"+eltSuppression.getAttribute("id"));
             document.location.reload();
         }
+    }
+}
+
+function panierVide() {
+    for (let eltM of elementsAMasquer) {
+        eltM.classList.add("d-none");
+    }
+    for (let eltA of elementsAAfficher) {
+        eltA.classList.add("d-block");
     }
 }

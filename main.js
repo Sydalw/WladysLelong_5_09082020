@@ -1,8 +1,7 @@
-const urlApi = "http://localhost:3000/api/cameras";
-let camerasArray=""; 
+const urlApiGET = "http://localhost:3000/api/cameras";
+const urlApiPOST = "http://localhost:3000/api/cameras/order";
+var camerasArray=""; 
 const camerasContainer = document.querySelector('#camera_Container');
-const recapCommande = document.querySelector('#recap_commande');
-const totalElement = document.getElementsByClassName("total");
 const badgePanier = document.querySelector('#badge_panier');
 
 
@@ -16,12 +15,12 @@ class elementPanier {
     }
 }
 
-let elementsPanier = [];
+var elementsPanier = [];
 
 console.log(camerasContainer);
 
-let requete = new XMLHttpRequest;
-requete.open('GET', urlApi);
+var requete = new XMLHttpRequest;
+requete.open('GET', urlApiGET);
 requete.responseType = 'json'; 
 requete.send(); // envoie la requete
 
@@ -34,7 +33,6 @@ requete.onload = function () {
             // on cherche la bonne camera dans le array.
             majContenuPanier();
             afficherBadgePanier();
-            formCheck();
         }
         
     } else {

@@ -50,7 +50,7 @@
         </div>
     </div>
     <div class="container">
-        <div class="row mt-5 justify-content-between">
+        <div class="row mt-5 justify-content-between masquerSiVide">
             <div class="col-2 col-lg-1">
                 <span class="badge badge-primary btn-block"><h6 class="mt-2">1</h6></span>
             </div>
@@ -85,20 +85,31 @@
                 <div id="recap_commande">
 
                 </div>
-                <div class="row ml-0 justify-content-between border-top">
-                    <h6>Sous-Total</h6>
-                    <h6 class="total" id="total"></h6>
+                <div class="masquerSiVide">
+                    <div class="row ml-0 justify-content-between border-top">
+                        <h6>Sous-Total</h6>
+                        <h6 class="total"></h6>
+                    </div>
+                    <div class="row ml-0 justify-content-between border-top text-secondary">
+                        <h6>Livraison</h6>
+                        <h6 class="text-success">0€</h6>
+                    </div>
+                    <div class="row ml-0 justify-content-between border-top text-uppercase">
+                        <h6>Total</h6>
+                        <h6 class="total"></h6>
+                    </div>
+                    <button type="button" class="btn btn-secondary text-muted btn-lg btn-block"><a class="text-decoration-none text-white" href="panierb.html">Valider la commande</a></button>
                 </div>
-                <div class="row ml-0 justify-content-between border-top text-secondary">
-                    <h6>Livraison</h6>
-                    <h6 class="text-success">0€</h6>
-                </div>
-                <div class="row ml-0 justify-content-between border-top text-uppercase">
-                    <h6>Total</h6>
-                    <h6 class="total"></h6>
-                </div>
-                <button type="button" class="btn btn-secondary text-muted btn-lg btn-block"><a class="text-decoration-none text-white" href="panierb.html">Valider la commande</a></button>
             </div>
+        </div>
+        <div class="row ml-0 mr-0 mt-5 d-none afficherSiVide">
+            <div class="alert alert-secondary col-12" role="alert">
+                <h4 class="alert-heading">Votre panier est vide !</h4>
+                <p></p>
+                <hr>
+                <p class="mb-0">Allez faire un tour sur notre page d'accueil pour sélectionner un produit</p>
+            </div>
+            <button type="submit" class="btn btn-secondary"><a class="text-decoration-none text-white" href="index.html">Retour à l'accueil</a></button>
         </div>
         <!-- Footer -->
         <footer class="page-footer font-small mdb-color pt-4 bg-dark mt-5">
