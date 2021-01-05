@@ -53,27 +53,24 @@ requete.onload = function () {
     }
 }
             
+// creation de la fonction pour mettre à jour le contenu du panier (une association id/option équivaut à un élément du panier, même en plusieurs exemplaires dans le panier)
 function majContenuPanier() {
-    for (let i=0; i < camerasArray.length; i++){
-        for (let j=0; j < camerasArray[i].lenses.length; j++){
-            if (localStorage.getItem("qte_"+camerasArray[i]._id+"/"+camerasArray[i].lenses[j]) != null && localStorage.getItem("qte_"+camerasArray[i]._id+"/"+camerasArray[i].lenses[j])>=0) {
+    for (let i=0; i < camerasArray.length; i++){ //pour chaque élément du Array issu de l'API
+        for (let j=0; j < camerasArray[i].lenses.length; j++){ //pour chaque option de chaque élément du Array de l'API
+            if (localStorage.getItem("qte_"+camerasArray[i]._id+"/"+camerasArray[i].lenses[j]) != null && localStorage.getItem("qte_"+camerasArray[i]._id+"/"+camerasArray[i].lenses[j])>=0) { //on cherche une correspondance avec les éléments du localStorage
                 let localName=camerasArray[i].name;
-
                 let localId=camerasArray[i]._id;
-                //console.log(localId);
                 let localOption = camerasArray[i].lenses[j];
-                //console.log(localOption);
                 let localQuantity = localStorage.getItem("qte_"+camerasArray[i]._id+"/"+camerasArray[i].lenses[j])
-                //console.log(localQuantity);
                 let localPrice = camerasArray[i].price;
                 
-                elementsPanier.push(new elementPanier(localName, localId, localOption, localQuantity, localPrice));
+                elementsPanier.push(new elementPanier(localName, localId, localOption, localQuantity, localPrice)); // en cas de correspondance on incrémente un objet elementPanier dans le tableau elementsPanier
             }
         }
     }
     console.log(elementsPanier);
     return elementsPanier;
-}            
+}               
 
 //// creation de la fonction pour chercher la camera. 
 function trouverCamera(element) {
@@ -81,15 +78,13 @@ function trouverCamera(element) {
     while (i < camerasArray.length && camerasArray[i]._id != element.id) {
     i++; // tant qu'on est pas au bout du array et qu'on a pas trouvé la bonne caméra, on continue la boucle
     }
-    //alert(i);
-    afficherVignetteCamera(camerasArray[i], element);//on appelle la fonction d'affichage
+    afficherVignetteCamera(camerasArray[i], element); //on appelle la fonction d'affichage
 }
 
 // creation de la fonction pour afficher une camera
 function afficherVignetteCamera(camera, element) {
     if (element.quantity >0){
         console.log(camera);
-        //alert("camera id = " + camera)
         const cameraElement = document.createElement('div');  
         cameraElement.setAttribute("class","row mb-2 mr-0");
         cameraElement.innerHTML = 

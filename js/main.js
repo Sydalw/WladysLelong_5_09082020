@@ -32,7 +32,7 @@ requete.onload = function () {
             console.log(camerasArray);
             // on cherche la bonne camera dans le array.
             majContenuPanier();
-            afficherBadgePanier();
+            //afficherBadgePanier();
         }
         
     } else {
@@ -65,3 +65,12 @@ function majContenuPanier() {
 function afficherBadgePanier() {
     badgePanier.innerHTML=`${elementsPanier.length}`;
 }
+
+
+var urlcourante = document.location.href; 
+// Supprimons l'éventuel dernier slash de l'URL
+var urlcourante = urlcourante.replace(/\/$/, "");
+// Gardons dans la variable queue_url uniquement la portion derrière le dernier slash de urlcourante
+var queue_url = urlcourante.substring (urlcourante.lastIndexOf( "/" )+1 );
+var words = queue_url.split(".");
+const src = words[0]+".js"

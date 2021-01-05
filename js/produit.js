@@ -3,6 +3,9 @@ let camerasArray="";
 const camerasContainer = document.querySelector('#camera_Container');
 const badgePanier = document.querySelector('#badge_panier');
 
+const eltQuantite = document.getElementById("quantite");
+const eltOption = document.getElementById("choix-option");
+
 class elementPanier {
     constructor(name, id, option, quantity, price){
         this.name = name;
@@ -17,15 +20,12 @@ let elementsPanier = [];
 
 console.log(camerasContainer);
 
+
+//on recupère l'id de l'élément à afficher dans l'url
 var position = window.location.href.indexOf('?');
-//alert(position);
-//alert(position);
 
-if(position!=-1)
-{
-var id = window.location.href.substr(position + 1);
-//alert(id);
-
+if(position!=-1) {
+    const id = window.location.href.substr(position + 1);
 }
 
 // crée la requete
@@ -49,7 +49,7 @@ requete.onload = function () {
     }
  }
 
-//// creation de la fonction pour chercher la camera. 
+//// creation de la fonction pour trouver la bonne camera. 
 function trouverCamera() {
     let i=0;
     while (i < camerasArray.length && camerasArray[i]._id != id) {
@@ -62,7 +62,6 @@ function trouverCamera() {
 // creation de la fonction pour afficher une camera
 function afficherCamera(camera) {
     console.log(camera);
-//    alert("camera id = " + camera)
      const cameraElement = document.createElement('div');  
      cameraElement.setAttribute("class","row mt-5");
      cameraElement.innerHTML = 
@@ -134,51 +133,40 @@ function afficherCamera(camera) {
         let monOption = document.createElement('option');
         monOption.innerHTML = `<option>${camera.lenses[i]}</option>`;
         mesOptions.appendChild(monOption);
-                
         console.log(camera.lenses[i]);
     }      
  }
 
 
-const eltQuantite = document.getElementById("quantite");
-const eltOption = document.getElementById("choix-option");
-
 function getValues() {
     
     // Sélectionner l'élément input et récupérer sa valeur
     var monOption = document.getElementById("choix-option").value;
-    //localStorage.setItem('opt_'+id, monOption);
-    
     var maQuantite = Number(document.getElementById("quantite").value);
     var oldQuantity = Number(localStorage.getItem('qte_'+id+'/'+monOption));
     maQuantite+=oldQuantity;
     localStorage.setItem('qte_'+id+'/'+monOption, maQuantite);
     
-    // Afficher la valeur
-    //alert("J'ai ajouté : " +maQuantite +" et "+monOption);
 }
 
+// creation de la fonction pour mettre à jour le contenu du panier (une association id/option équivaut à un élément du panier, même en plusieurs exemplaires dans le panier)
 function majContenuPanier() {
-    for (let i=0; i < camerasArray.length; i++){
-        for (let j=0; j < camerasArray[i].lenses.length; j++){
-            if (localStorage.getItem("qte_"+camerasArray[i]._id+"/"+camerasArray[i].lenses[j]) != null && localStorage.getItem("qte_"+camerasArray[i]._id+"/"+camerasArray[i].lenses[j])>=0) {
+    for (let i=0; i < camerasArray.length; i++){ //pour chaque élément du Array issu de l'API
+        for (let j=0; j < camerasArray[i].lenses.length; j++){ //pour chaque option de chaque élément du Array de l'API
+            if (localStorage.getItem("qte_"+camerasArray[i]._id+"/"+camerasArray[i].lenses[j]) != null && localStorage.getItem("qte_"+camerasArray[i]._id+"/"+camerasArray[i].lenses[j])>=0) { //on cherche une correspondance avec les éléments du localStorage
                 let localName=camerasArray[i].name;
-
                 let localId=camerasArray[i]._id;
-                //console.log(localId);
                 let localOption = camerasArray[i].lenses[j];
-                //console.log(localOption);
                 let localQuantity = localStorage.getItem("qte_"+camerasArray[i]._id+"/"+camerasArray[i].lenses[j])
-                //console.log(localQuantity);
                 let localPrice = camerasArray[i].price;
                 
-                elementsPanier.push(new elementPanier(localName, localId, localOption, localQuantity, localPrice));
+                elementsPanier.push(new elementPanier(localName, localId, localOption, localQuantity, localPrice)); // en cas de correspondance on incrémente un objet elementPanier dans le tableau elementsPanier
             }
         }
     }
     console.log(elementsPanier);
     return elementsPanier;
-}
+}       
 
 function afficherBadgePanier() {
     badgePanier.innerHTML=`${elementsPanier.length}`;

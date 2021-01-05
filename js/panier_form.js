@@ -5,7 +5,8 @@ const camerasContainer = document.querySelector('#camera_Container');
 const recapCommande = document.querySelector('#recap_commande');
 const totalElement = document.getElementsByClassName("total");
 const badgePanier = document.querySelector('#badge_panier');
-
+const formulaire = document.getElementById("formulaire");
+const message = document.getElementById("messageConfirmation");
 
 class elementPanier {
     constructor(name, id, option, quantity, price){
@@ -32,10 +33,13 @@ requete.onload = function () {
         if (requete.status === 200 ||requete.status === 201){
             camerasArray = requete.response; // stocke la reponse dans une variable.
             console.log(camerasArray);
-            // on cherche la bonne camera dans le array.
-            majContenuPanier();
-            afficherBadgePanier();
-            animationInput();
+            majContenuPanier(); //on appelle la fonction qui met à jour le nombre d'éléments dans le panier
+            afficherBadgePanier(); // on appelle la fonction qui affiche le nombre d'éléments dans le panier
+            animationInput(); //on appelle la fonction qui permet d'afficher le code couleur ok/nok des inputs
+            formulaire.addEventListener("submit", (e) => { //on écoute l'événement submit, qd il se déclenche, on empeche le comportement par défaut et on appelle la fonction formCheck
+                e.preventDefault();
+                formCheck();
+            });
         }
         
     } else {
@@ -43,27 +47,24 @@ requete.onload = function () {
     }
 }
             
+// creation de la fonction pour mettre à jour le contenu du panier (une association id/option équivaut à un élément du panier, même en plusieurs exemplaires dans le panier)
 function majContenuPanier() {
-    for (let i=0; i < camerasArray.length; i++){
-        for (let j=0; j < camerasArray[i].lenses.length; j++){
-            if (localStorage.getItem("qte_"+camerasArray[i]._id+"/"+camerasArray[i].lenses[j]) != null && localStorage.getItem("qte_"+camerasArray[i]._id+"/"+camerasArray[i].lenses[j])>=0) {
+    for (let i=0; i < camerasArray.length; i++){ //pour chaque élément du Array issu de l'API
+        for (let j=0; j < camerasArray[i].lenses.length; j++){ //pour chaque option de chaque élément du Array de l'API
+            if (localStorage.getItem("qte_"+camerasArray[i]._id+"/"+camerasArray[i].lenses[j]) != null && localStorage.getItem("qte_"+camerasArray[i]._id+"/"+camerasArray[i].lenses[j])>=0) { //on cherche une correspondance avec les éléments du localStorage
                 let localName=camerasArray[i].name;
-
                 let localId=camerasArray[i]._id;
-                //console.log(localId);
                 let localOption = camerasArray[i].lenses[j];
-                //console.log(localOption);
                 let localQuantity = localStorage.getItem("qte_"+camerasArray[i]._id+"/"+camerasArray[i].lenses[j])
-                //console.log(localQuantity);
                 let localPrice = camerasArray[i].price;
                 
-                elementsPanier.push(new elementPanier(localName, localId, localOption, localQuantity, localPrice));
+                elementsPanier.push(new elementPanier(localName, localId, localOption, localQuantity, localPrice)); // en cas de correspondance on incrémente un objet elementPanier dans le tableau elementsPanier
             }
         }
     }
     console.log(elementsPanier);
     return elementsPanier;
-}            
+}         
 
 function afficherBadgePanier() {
     badgePanier.innerHTML=`${elementsPanier.length}`;
@@ -73,10 +74,10 @@ function afficherBadgePanier() {
 function animationInput() {
   'use strict'
 
-  // Fetch all the forms we want to apply custom Bootstrap validation styles to
+  // On crée une variable qui selectionne tous les forms sur lesquels on veut appliquer le style via une classe specifique
   var forms = document.querySelectorAll('.needs-validation');
 
-  // Loop over them and prevent submission
+  // On boucle sur les forms, on empeche la soumission et on vérifie la conformité à chaque change sur chaque input
   Array.prototype.slice.call(forms)
     .forEach(function (form) {
       form.addEventListener('change', function (event) {
@@ -90,16 +91,17 @@ function animationInput() {
     })
 }
 
+
+//fonction qui 
 function formCheck() {
     const form = document.querySelector('.needs-validation');
-    // si la valeur du champ prenom est non vide
     const orderInput = form.getElementsByTagName('input');
     console.log(orderInput);
     
+    //pour chaque element required du formulaire, on vérifie que l'entrée est valide
     for (let i=0; i < orderInput.length; i++){
        if (orderInput[i].required){
            if(orderInput[i].value && orderInput[i].validity.valid){
-                //alert(orderInput[i].value+" "+orderInput[i].validity.valid);
             } else {
                 alert("Merci de remplir correctement le "+ orderInput[i].name + " ou de vérifier la conformité avec le format attendu!!")
                 return false;
@@ -107,6 +109,7 @@ function formCheck() {
        } 
     }
     
+    //on crée l'objet contact qui servira dans la requete POST et qui prendra comme valeurs les entrées des champs required du formulaire
     const contact = {
       firstName: orderInput[0].value,
       lastName: orderInput[1].value,
@@ -117,17 +120,13 @@ function formCheck() {
     
     console.log(contact);
     
-
+    // on crée le tableau product qui prendra comme valeur les id des produits que l'on commande
     let products = [];
     for (let i=0; i < elementsPanier.length; i++){
-        alert(elementsPanier[i].id);
         products.push(elementsPanier[i].id);
     }
-    alert(products);
     let order = { contact, products };
     console.log(order);
-    alert(order);
-
 
     // requete post 
     var request = new XMLHttpRequest();
@@ -136,22 +135,21 @@ function formCheck() {
     request.send(JSON.stringify(order));
     request.responseType = 'json'; 
     
-    alert("début");
-    
     //reponse de la requete
     request.onload = function () { 
         if (request.readyState === XMLHttpRequest.DONE ) { // verifie l'état de la requête. 
             if (request.status === 200 ||request.status === 201){
-                alert(request.response);
                 console.log(request.response);
                 let confirmation = request.response;
                 console.log(confirmation);
                 let idConfirmation = confirmation.orderId;
-                alert(idConfirmation);
                 console.log(idConfirmation);
 
-                localStorage.setItem("orderNumber", idConfirmation);
-                //localStorage.removeItem("");
+                localStorage.setItem("orderNumber", idConfirmation); //on stocke dans le localStorage le numéro de commande renvoyé par l'API en reponse à la requete POST
+                for (let i=0; i < elementsPanier.length; i++){ //on supprime les elements du paniers stockés dans le localStorage
+                    localStorage.removeItem("qte_"+ elementsPanier[i].id + "/" + elementsPanier[i].option);
+                }
+                afficherMessageConfirmation(idConfirmation); //on appelle la fonction d'affichage de message de confirmation
             }
             else {
                 console.log(error);
@@ -160,8 +158,20 @@ function formCheck() {
         }
     }
         
-    alert("fin");
-    
     return true;
     
+}
+
+// creation fonction affichage message de confirmation
+function afficherMessageConfirmation(orderNumber){
+    formulaire.classList.add("d-none"); //on désactive l'affichage du formulaire
+    message.classList.add("d-block"); //on active l'affichage du message
+    document.getElementById("etape_2").classList.remove("badge-primary"); //on met à jour les couleurs des étapes du processus de commande
+    document.getElementById("etape_2").classList.add("badge-success");
+    document.getElementById("etape_3").classList.remove("badge-secondary");
+    document.getElementById("etape_3").classList.add("badge-success");
+    
+    const pOrderNumber = document.getElementById("orderNumber"); //on recupere le numero de commande
+    pOrderNumber.insertAdjacentHTML('beforeend', orderNumber); // on l'insère dans le message
+    localStorage.removeItem(orderNumber); //on supprime le numero de commande du localStorage
 }
