@@ -19,8 +19,6 @@ class elementPanier {
 
 let elementsPanier = [];
 
-console.log(camerasContainer);
-
 let requete = new XMLHttpRequest;
 requete.open('GET', urlApi);
 requete.responseType = 'json'; 

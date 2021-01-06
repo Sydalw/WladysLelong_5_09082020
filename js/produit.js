@@ -6,6 +6,7 @@ const badgePanier = document.querySelector('#badge_panier');
 const eltQuantite = document.getElementById("quantite");
 const eltOption = document.getElementById("choix-option");
 
+
 class elementPanier {
     constructor(name, id, option, quantity, price){
         this.name = name;
@@ -18,14 +19,15 @@ class elementPanier {
 
 let elementsPanier = [];
 
-console.log(camerasContainer);
+//console.log(camerasContainer);
 
 
 //on recupère l'id de l'élément à afficher dans l'url
 var position = window.location.href.indexOf('?');
+//var identifiant; 
 
 if(position!=-1) {
-    const id = window.location.href.substr(position + 1);
+    var identifiant = window.location.href.substr(position + 1);
 }
 
 // crée la requete
@@ -44,6 +46,11 @@ requete.onload = function () {
             trouverCamera(); // on cherche la bonne camera dans le array.
             }
             afficherBadgePanier();
+            const formulaire = document.getElementById("formulaire");
+            formulaire.addEventListener("submit", (e) => { //on écoute l'événement submit, qd il se déclenche, et on appelle la fonction getValues
+                getValues();
+            });
+        
     } else {
         alert("Un problème est survenu, merci de réessayer plus tard");
     }
@@ -52,11 +59,13 @@ requete.onload = function () {
 //// creation de la fonction pour trouver la bonne camera. 
 function trouverCamera() {
     let i=0;
-    while (i < camerasArray.length && camerasArray[i]._id != id) {
+        console.log(camerasArray[i]);
+    while (i < camerasArray.length && camerasArray[i]._id != identifiant) {
     i++; // tant qu'on est pas au bout du array et qu'on a pas trouvé la bonne caméra, on continue la boucle
     }
     //alert(i);
     afficherCamera(camerasArray[i]);//on appelle la fonction d'affichage
+
 }
 
 // creation de la fonction pour afficher une camera
@@ -111,7 +120,7 @@ function afficherCamera(camera) {
                 <h5>La fabuleuse caméra ${camera.name}</h5>
                 <p>${camera.description}</p>
                 <p>${camera.price/100} €</p>
-                <form>
+                <form method="link" action="panier.html" id="formulaire">
                     <div class="form-group">
                         <label for="quantité">Choisissez une quantité </label></br>
                         <input type="number" value="1" min="1" class="form-control mb-4" id="quantite">
@@ -121,7 +130,7 @@ function afficherCamera(camera) {
                         <select class="form-control" id="choix-option">
                         </select> 
                     </div>
-                    <button type="button" class="btn btn-secondary text-muted btn-lg btn-block" onclick="getValues();"><a class="text-decoration-none text-white" id="validation" href="panier.html">Ajouter au panier</a></button>
+                    <input type="submit" class="btn btn-secondary btn-lg btn-block" value="Ajouter au panier" href="panier.html">
                 </form>
                 <p><em>Livraison offerte pour toute commande livrée en France</em></p>
             </div>`;
@@ -143,9 +152,10 @@ function getValues() {
     // Sélectionner l'élément input et récupérer sa valeur
     var monOption = document.getElementById("choix-option").value;
     var maQuantite = Number(document.getElementById("quantite").value);
-    var oldQuantity = Number(localStorage.getItem('qte_'+id+'/'+monOption));
+    var oldQuantity = Number(localStorage.getItem('qte_'+identifiant+'/'+monOption));
+    console.log(oldQuantity);
     maQuantite+=oldQuantity;
-    localStorage.setItem('qte_'+id+'/'+monOption, maQuantite);
+    localStorage.setItem('qte_'+identifiant+'/'+monOption, maQuantite);
     
 }
 

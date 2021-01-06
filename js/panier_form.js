@@ -173,5 +173,5 @@ function afficherMessageConfirmation(orderNumber){
     
     const pOrderNumber = document.getElementById("orderNumber"); //on recupere le numero de commande
     pOrderNumber.insertAdjacentHTML('beforeend', orderNumber); // on l'insère dans le message
-    localStorage.removeItem(orderNumber); //on supprime le numero de commande du localStorage
+    localStorage.removeItem("orderNumber"); //on supprime le numero de commande du localStorage
 }
